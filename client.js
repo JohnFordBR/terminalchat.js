@@ -4,7 +4,7 @@
 const socket = socketio.connect('http://localhost:3636/');
 const rl = readline.createInterface(process.stdin, process.stdout);
 let nickname;
-
+let defaultcolor='cyan';
 
 
 
@@ -24,23 +24,42 @@ rl.question("Please enter a nickname:", (name) =>{
 
 
 rl.on('line', (line) =>{
-process.stdout.clearLine();
-socket.emit('send', {  message:line, nickname: nickname });
+let spliter = line.split(':')
 
+if(line[0]==='/'&&spliter[0]==='/chcolor'){
+socket.emit('send', {  type:'chcolor', message:line, nickname: nickname });
+}else{
+socket.emit('send', {   message:line, nickname: nickname });
+}
 
 });
+
+
 
 
 
 socket.on('message', (data) =>{
 
 
-    let colornick;
-    colornick = color( data.nickname, "cyan");
+
+
+
+if(data.type=='chcolor'){
+
+
+      defaultcolor  = data.message.split(':')[1].split(' ')[0];
+          colornick = color( data.nickname, `${defaultcolor}`);
+          console.log(`:()${colornick}  ${data.message} `);
+}
+
+else{
+
+colornick = color( data.nickname, `${defaultcolor}`);
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
-    console.log(`:()${colornick}  ${data.message} `);
+    console.log(`:() ${colornick}  ${data.message} `);
     rl.prompt(true);
 
+}
 
 });
