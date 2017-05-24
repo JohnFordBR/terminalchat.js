@@ -8,6 +8,11 @@ let nickname;
 
 
 
+
+
+
+
+
 rl.question("Please enter a nickname:", (name) =>{
 
     let newcomer = ` is newcomer`;
@@ -19,9 +24,9 @@ rl.question("Please enter a nickname:", (name) =>{
 
 
 rl.on('line', (line) =>{
-  readline.cursorTo(process.stdout, 0);
-
+process.stdout.clearLine();
 socket.emit('send', {  message:line, nickname: nickname });
+
 
 });
 
@@ -29,10 +34,13 @@ socket.emit('send', {  message:line, nickname: nickname });
 
 socket.on('message', (data) =>{
 
-if(nickname!=undefined){
+
     let colornick;
     colornick = color( data.nickname, "cyan");
-    console.log(` ${colornick}  ${data.message} `);
-}
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    console.log(`:()${colornick}  ${data.message} `);
+    rl.prompt(true);
+
 
 });
