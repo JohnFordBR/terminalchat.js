@@ -6,6 +6,7 @@
   "dependencies": {
     "ansi-color": "^0.2.1",
     "ansicolors": "^0.3.2",
+    "ascii-video": "0.0.5",
     "node-mplayer": "0.0.6",
     "readline": "^1.3.0",
     "socket.io": "^2.0.1",
