@@ -24,10 +24,15 @@ rl.question("Please enter a nickname:", (name) =>{
 
 
 rl.on('line', (line) =>{
+
 let spliter = line.split(':')
 
 if(line[0]==='/'&&spliter[0]==='/chcolor'){
 socket.emit('send', {  type:'chcolor', message:line, nickname: nickname });
+}else if(line[0]==='/'&&spliter[0]==='/chnick'){
+socket.emit('send', {  type:'chnick', message:line, nickname: nickname });
+}else if(line[0]==='/'&&spliter[0]==='/clear'){
+socket.emit('send', {  type:'clear', message:line, nickname: nickname });
 }else{
 socket.emit('send', {   message:line, nickname: nickname });
 }
@@ -49,15 +54,22 @@ if(data.type=='chcolor'){
 
       defaultcolor  = data.message.split(':')[1].split(' ')[0];
           colornick = color( data.nickname, `${defaultcolor}`);
-          console.log(`:()${colornick}  ${data.message} `);
-}
+          console.log(`$${colornick}  ${data.message} `);
+}else if(data.type=='chnick'){
 
-else{
+nickname=data.message.split(':')[1].split(' ')[0];
+colornick = color( data.nickname, `${defaultcolor}`);
+console.log(`$${colornick}  ${data.message} `);
+
+}else if(data.type=='clear'){
+
+process.stdin.write('\u001b[2J\u001b[0;0H');
+}else{
 
 colornick = color( data.nickname, `${defaultcolor}`);
     process.stdout.clearLine();
     process.stdout.cursorTo(0);
-    console.log(`:() ${colornick}  ${data.message} `);
+    console.log(`$${colornick}  ${data.message} `);
     rl.prompt(true);
 
 }
