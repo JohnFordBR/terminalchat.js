@@ -52,6 +52,8 @@ socket.emit('send', {  type:'hadouken', message:line, nickname: nickname });
 socket.emit('send', {  type:'fry', message:line, nickname: nickname });
 }else if(line[0]==='/'&&spliter[0]==='/bean'){
 socket.emit('send', {  type:'bean', message:line, nickname: nickname });
+}else if(line[0]==='/'&&spliter[0]==='/alien'){
+socket.emit('send', {  type:'alien', message:line, nickname: nickname });
 }else{
 socket.emit('send', {   message:line, nickname: nickname,color:defaultcolor });
 }
@@ -164,7 +166,7 @@ player1.play({volume: 50});
   rl.prompt(true);
 }else if(data.type==='bean'){
 console.log(`
-  
+
   ─────────────█████████████████▓
   ──────────▒█████████████████████▓
   ─────────█████████████████████████
@@ -233,6 +235,12 @@ console.log(`
 rl.prompt(true);
 
 
+}else if(data.type==='alien'){
+console.log(`
+@L@ chka
+
+
+  `);
 }else{
 
 colornick = color( data.nickname, `${data.color}`);
