@@ -1,12 +1,11 @@
   const readline = require('readline');
-  var Mplayer = require('node-mplayer');
  const socketio = require('socket.io-client');
  const color = require("ansi-color").set;
-const socket = socketio.connect('http://localhost:3636/');
+const socket = socketio.connect('http://localhost:1515/');
 const rl = readline.createInterface(process.stdin, process.stdout);
 let nickname;
 let defaultcolor='cyan';
-const  player1 = new Mplayer('hadouken.mp4');
+
 
 rl.setPrompt('$');
 rl.question("Please enter a color:", (color) =>{
@@ -44,8 +43,6 @@ process.stdin.write('\u001b[2J\u001b[0;0H');
 rl.prompt(true);
 }else if(line[0]==='/'&&spliter[0]==='/bear'){
 socket.emit('send', {  type:'bear', message:line, nickname: nickname });
-}else if(line[0]==='/'&&spliter[0]==='/hadouken'){
-socket.emit('send', {  type:'hadouken', message:line, nickname: nickname });
 }else if (line[0]==='/'&&spliter[0]==='/shrug'){
   socket.emit('send', {  type:'shrug', message:line, nickname: nickname });
 }else if(line[0]==='/'&&spliter[0]==='/fry'){
@@ -124,8 +121,6 @@ socket.on('message', (data) =>{
 ……………………………………………………’-, ; ; ;,,-~’’’  , ,|, |
 ………………………………………………………’’~-‘’_ , , ,,’,_/--‘ `);
 rl.prompt(true);
-}else if(data.type=='hadouken'){
-player1.play({volume: 50});
 }else if(data.type=='shrug'){
   console.log(`¯\_(ツ)_/¯`);
   rl.prompt(true);
