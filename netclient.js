@@ -25,35 +25,7 @@ client.write(JSON.stringify({message: newcomer,nickname:nickname,color:defaultco
 
 
 rl.on('line',(line)=>{
-  let spliter = line.split(':')
-
-  if(line[0]==='/'&&spliter[0]==='/chcolor'){
-  defaultcolor=line.split(':')[1].split(' ')[0];
-  client.write(JSON.stringify({  message:line,nickname:nickname,color:defaultcolor }));
-  rl.prompt(true);
-  }else if(line[0]==='/'&&spliter[0]==='/chnick'){
-  nickname=line.split(':')[1].split(' ')[0];
-  client.write(JSON.stringify({   message:line, nickname: nickname,color:defaultcolor }));
-  rl.prompt(true);
-  }else if(line[0]==='/'&&spliter[0]==='/clear'){
-  process.stdin.write('\u001b[2J\u001b[0;0H');
-  rl.prompt(true);
-  }else if(line[0]==='/'&&spliter[0]==='/bear'){
-    client.write(JSON.stringify({   type:'bear', message:line, nickname: nickname }));
-  }else if (line[0]==='/'&&spliter[0]==='/shrug'){
-    client.write(JSON.stringify({  type:'shrug', message:line, nickname: nickname }));
-  }else if(line[0]==='/'&&spliter[0]==='/fry'){
-    client.write(JSON.stringify({   type:'fry', message:line, nickname: nickname }));
-  }else if(line[0]==='/'&&spliter[0]==='/bean'){
-    client.write(JSON.stringify({ type:'bean', message:line, nickname: nickname}));
-  }else if(line[0]==='/'&&spliter[0]==='/alien'){
-    client.write(JSON.stringify({   type:'alien', message:line, nickname: nickname}));
-  }else if(line[0]==='/'&&spliter[0]==='/toad'){
-  client.write(JSON.stringify({   type:'toad', message:line, nickname: nickname }));
-  }else{
-  client.write(JSON.stringify({   message:line, nickname: nickname,color:defaultcolor }));
-  }
-
+conscom(line);
 });
 
 
@@ -284,3 +256,47 @@ client.on('data',(data)=>{
 
 
 });
+
+
+
+const conscom=(line)=>{
+let spliter = line.split(':')
+
+
+    switch (spliter[0]) {
+    case '/chcolor':
+    defaultcolor=line.split(':')[1].split(' ')[0];
+    client.write(JSON.stringify({  message:line,nickname:nickname,color:defaultcolor }));
+    rl.prompt(true);
+      break;
+    case '/chnick':
+    nickname=line.split(':')[1].split(' ')[0];
+    client.write(JSON.stringify({   message:line, nickname: nickname,color:defaultcolor }));
+    rl.prompt(true);
+      break;
+    case '/clear':
+    process.stdin.write('\u001b[2J\u001b[0;0H');
+    rl.prompt(true);
+      break;
+    case '/bear':
+    client.write(JSON.stringify({   type:'bear', message:line, nickname: nickname }));
+      break;
+    case '/shrug':
+      client.write(JSON.stringify({  type:'shrug', message:line, nickname: nickname }));
+      break;
+      case '/fry':
+        client.write(JSON.stringify({  type:'fry', message:line, nickname: nickname }));
+        break;
+        case '/bean':
+          client.write(JSON.stringify({  type:'bean', message:line, nickname: nickname }));
+          break;
+          case '/alien':
+            client.write(JSON.stringify({  type:'alien', message:line, nickname: nickname }));
+            break;
+    default:
+    client.write(JSON.stringify({ message:line, nickname: nickname,color:defaultcolor }));
+  }
+
+  
+
+}
