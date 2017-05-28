@@ -1,6 +1,6 @@
 to use  this  chat write commands bellow
 
-
+npm install json-socket
 npm install ansi-color
 npm install ascii-video
 npm install node-mplayer

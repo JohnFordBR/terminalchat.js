@@ -1,3 +1,4 @@
+'use strict';
 const socketio = require('socket.io');
 const io = socketio.listen(1515);
 
